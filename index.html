@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Groups - Building Tomorrow, Today</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: #f3f4f6; /* Light text */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Hero Video Background Styling */
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Place behind content and overlay */
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover; /* Cover the area, crop if needed */
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar transition */
+        nav {
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        /* Mobile menu slide animation */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .translate-x-full {
+            transform: translateX(100%);
+        }
+
+        /* Subtle hover effects */
+        .hover-lift {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+        }
+
+         /* Scrollbar styling (optional, for aesthetics) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fb923c; /* Orange accent */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f97316;
+        }
+
+        /* Fade-in animation class */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animated Counter Style */
+        .counter {
+            font-weight: 700;
+            font-size: 2.5rem; /* Adjust size as needed */
+            color: #fb923c; /* Orange accent */
+        }
+
+        /* Project Card Hover Reveal Placeholder */
+        .project-card .details {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            background-color: rgba(17, 24, 39, 0.8); /* Dark overlay */
+        }
+        .project-card:hover .details {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body class="text-gray-100">
+
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent py-4 px-6 md:px-12">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold text-white">RS Groups</a>
+
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#hero" class="hover:text-orange-400 transition duration-300">Home</a>
+                <a href="#services" class="hover:text-orange-400 transition duration-300">Services</a>
+                <a href="#projects" class="hover:text-orange-400 transition duration-300">Projects</a>
+                <a href="#about" class="hover:text-orange-400 transition duration-300">About</a>
+                <a href="#contact" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-md transition duration-300">Contact Us</a>
+            </div>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-gray-800 shadow-lg p-6 transform translate-x-full z-40 md:hidden">
+         <button id="close-mobile-menu" class="absolute top-4 right-4 text-white focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <nav class="mt-10 flex flex-col space-y-4">
+            <a href="#hero" class="text-lg hover:text-orange-400 transition duration-300 mobile-nav-link">Home</a>
+            <a href="#services" class="text-lg hover:text-orange-400 transition duration-300 mobile-nav-link">Services</a>
+            <a href="#projects" class="text-lg hover:text-orange-400 transition duration-300 mobile-nav-link">Projects</a>
+            <a href="#about" class="text-lg hover:text-orange-400 transition duration-300 mobile-nav-link">About</a>
+            <a href="#contact" class="text-lg hover:text-orange-400 transition duration-300 mobile-nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <main>
+
+        <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-900">
+            <video id="hero-video" autoplay muted loop playsinline poster="https://placehold.co/1920x1080/1f2937/FFF?text=Loading+Video...">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-construction-site-timelapse-video-4110-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <div class="absolute inset-0 bg-black opacity-50 z-0"></div>
+
+            <div class="text-center z-10 px-4 relative">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-4 tracking-tight">
+                    RS Groups
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8">
+                    Building Tomorrow, Today
+                </p>
+                <a href="#services" class="absolute -bottom-16 md:-bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <section id="services" class="py-20 px-6 md:px-12 bg-gray-800">
+            <div class="container mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in-element">Our Services</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto fade-in-element">Delivering excellence in every phase of construction and infrastructure development.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-700 p-8 rounded-lg shadow-lg hover-lift fade-in-element">
+                        <div class="text-orange-400 mb-4 text-4xl"><i class="fas fa-building"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Commercial Buildings</h3>
+                        <p class="text-gray-400">Modern office spaces, retail centers, and industrial facilities.</p>
+                    </div>
+                    <div class="bg-gray-700 p-8 rounded-lg shadow-lg hover-lift fade-in-element" style="transition-delay: 0.1s;">
+                        <div class="text-orange-400 mb-4 text-4xl"><i class="fas fa-home"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Residential Projects</h3>
+                        <p class="text-gray-400">High-quality apartments, villas, and housing communities.</p>
+                    </div>
+                    <div class="bg-gray-700 p-8 rounded-lg shadow-lg hover-lift fade-in-element" style="transition-delay: 0.2s;">
+                        <div class="text-orange-400 mb-4 text-4xl"><i class="fas fa-road"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Infrastructure & Roads</h3>
+                        <p class="text-gray-400">Building robust roads, bridges, and essential public infrastructure.</p>
+                    </div>
+                    <div class="bg-gray-700 p-8 rounded-lg shadow-lg hover-lift fade-in-element" style="transition-delay: 0.3s;">
+                         <div class="text-orange-400 mb-4 text-4xl"><i class="fas fa-paint-roller"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Renovation & Interiors</h3>
+                        <p class="text-gray-400">Transforming spaces with expert renovation and interior design.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-20 px-6 md:px-12 bg-gray-900">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in-element">Featured Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="project-card relative rounded-lg overflow-hidden shadow-lg group fade-in-element">
+                        <img src="https://placehold.co/600x400/374151/FFF?text=Project+Alpha" alt="Project Alpha" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/600x400/374151/FFF?text=Image+Error';">
+                        <div class="details absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-semibold text-white mb-1">Project Alpha</h3>
+                            <p class="text-sm text-gray-300">Location: Metropolis | Completed: 18 Months</p>
+                            <p class="text-sm text-gray-300 mt-2">Highlights: LEED Platinum certified, innovative facade.</p>
+                            </div>
+                    </div>
+                    <div class="project-card relative rounded-lg overflow-hidden shadow-lg group fade-in-element" style="transition-delay: 0.1s;">
+                        <img src="https://placehold.co/600x400/4b5563/FFF?text=Project+Beta" alt="Project Beta" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/600x400/4b5563/FFF?text=Image+Error';">
+                         <div class="details absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-semibold text-white mb-1">Project Beta</h3>
+                            <p class="text-sm text-gray-300">Location: Coastal City | Completed: 24 Months</p>
+                            <p class="text-sm text-gray-300 mt-2">Highlights: Luxury residential complex with sea views.</p>
+                        </div>
+                    </div>
+                    <div class="project-card relative rounded-lg overflow-hidden shadow-lg group fade-in-element" style="transition-delay: 0.2s;">
+                        <img src="https://placehold.co/600x400/6b7280/FFF?text=Project+Gamma" alt="Project Gamma" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/600x400/6b7280/FFF?text=Image+Error';">
+                         <div class="details absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-semibold text-white mb-1">Project Gamma</h3>
+                            <p class="text-sm text-gray-300">Location: Industrial Park | Completed: 12 Months</p>
+                            <p class="text-sm text-gray-300 mt-2">Highlights: State-of-the-art logistics warehouse.</p>
+                        </div>
+                    </div>
+                     </div>
+                 </div>
+        </section>
+
+        <section id="about" class="py-20 px-6 md:px-12 bg-gray-800">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-element">
+                    <img src="https://placehold.co/600x500/374151/FFF?text=Modern+Construction" alt="Construction Site" class="rounded-lg shadow-xl w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x500/374151/FFF?text=Image+Error';">
+                    </div>
+                <div class="fade-in-element">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">About RS Groups</h2>
+                    <p class="text-lg text-gray-400 mb-4">
+                        With decades of experience, RS Groups stands at the forefront of the construction and infrastructure industry. We are committed to innovation, uncompromising quality, and a safety-first approach in every project we undertake.
+                    </p>
+                    <p class="text-lg text-gray-400 mb-8">
+                        Our team of experts leverages cutting-edge technology and sustainable practices to build structures and infrastructure that not only meet today's needs but also anticipate the demands of tomorrow.
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <span id="projects-counter" class="counter block">0</span>
+                            <span class="text-gray-400 text-sm">Projects Completed</span>
+                        </div>
+                        <div>
+                            <span id="sqft-counter" class="counter block">0</span>
+                            <span class="text-gray-400 text-sm">Million Sq. Ft. Built</span>
+                        </div>
+                        <div>
+                            <span id="experience-counter" class="counter block">0</span>
+                            <span class="text-gray-400 text-sm">Years of Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="team" class="py-20 px-6 md:px-12 bg-gray-900">
+            <div class="container mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 fade-in-element">Meet Our Leaders</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center hover-lift fade-in-element">
+                        <img src="https://placehold.co/150x150/4b5563/FFF?text=Team" alt="Team Member" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-orange-400" onerror="this.onerror=null;this.src='https://placehold.co/150x150/4b5563/FFF?text=Image+Error';">
+                        <h3 class="text-xl font-semibold mb-1">Zameer Ahmed</h3>
+                        <p class="text-gray-400 mb-3">Founder & CEO</p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 transition duration-300"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                     <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center hover-lift fade-in-element" style="transition-delay: 0.1s;">
+                        <img src="https://placehold.co/150x150/6b7280/FFF?text=Team" alt="Team Member" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-orange-400" onerror="this.onerror=null;this.src='https://placehold.co/150x150/6b7280/FFF?text=Image+Error';">
+                        <h3 class="text-xl font-semibold mb-1">Arjun Reddy</h3>
+                        <p class="text-gray-400 mb-3">Chief Engineer</p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 transition duration-300"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center hover-lift fade-in-element" style="transition-delay: 0.2s;">
+                        <img src="https://placehold.co/150x150/4b5563/FFF?text=Team" alt="Team Member" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-orange-400" onerror="this.onerror=null;this.src='https://placehold.co/150x150/4b5563/FFF?text=Image+Error';">
+                        <h3 class="text-xl font-semibold mb-1">Vishal</h3>
+                        <p class="text-gray-400 mb-3">Head of Projects</p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 transition duration-300"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                     <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center hover-lift fade-in-element" style="transition-delay: 0.3s;">
+                        <img src="https://placehold.co/150x150/6b7280/FFF?text=Team" alt="Team Member" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-orange-400" onerror="this.onerror=null;this.src='https://placehold.co/150x150/6b7280/FFF?text=Image+Error';">
+                        <h3 class="text-xl font-semibold mb-1">Shruthi</h3>
+                        <p class="text-gray-400 mb-3">Design Lead</p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 transition duration-300"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 px-6 md:px-12 bg-gray-800 relative overflow-hidden">
+             <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23fb923c\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+            <div class="container mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div class="fade-in-element">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Get In Touch</h2>
+                    <p class="text-lg text-gray-400 mb-6">
+                        Have a project in mind or want to learn more about our services? Contact us today.
+                    </p>
+                    <div class="space-y-4 mb-8 text-gray-300">
+                        <p><i class="fas fa-map-marker-alt mr-3 text-orange-400"></i> 123 Construction Way, Metropolis, 10001</p>
+                        <p><i class="fas fa-phone mr-3 text-orange-400"></i> (123) 456-7890</p>
+                        <p><i class="fas fa-envelope mr-3 text-orange-400"></i> info@rsgroups.example.com</p>
+                    </div>
+                     <div class="h-64 bg-gray-700 rounded-lg shadow-md flex items-center justify-center text-gray-500">
+                        Interactive Map Placeholder
+                    </div>
+                </div>
+
+                <div class="bg-gray-700 p-8 rounded-lg shadow-xl fade-in-element">
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-md transition duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 py-8 px-6 md:px-12">
+        <div class="container mx-auto text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                 <a href="#" class="hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-facebook-f"></i></a>
+                 <a href="#" class="hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-twitter"></i></a>
+                 <a href="#" class="hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-linkedin-in"></i></a>
+                 <a href="#" class="hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-sm">&copy; <span id="current-year"></span> RS Groups. All Rights Reserved.</p>
+            <p class="text-sm mt-1">info@rsgroups.example.com | (123) 456-7890</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.getElementById('navbar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const currentYearSpan = document.getElementById('current-year');
+
+            // Set current year in footer
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Navbar background on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.remove('bg-transparent');
+                    navbar.classList.add('bg-gray-900', 'shadow-md');
+                } else {
+                    navbar.classList.add('bg-transparent');
+                    navbar.classList.remove('bg-gray-900', 'shadow-md');
+                }
+            });
+
+            // Mobile Menu Toggle
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('translate-x-full');
+            });
+
+            closeMobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                });
+            });
+
+            // --- Intersection Observer for Fade-in Animations ---
+            const observerOptions = {
+                root: null, // relative to document viewport
+                rootMargin: '0px',
+                threshold: 0.1 // trigger when 10% of the element is visible
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            const elementsToAnimate = document.querySelectorAll('.fade-in-element');
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+
+
+            // --- Animated Counters ---
+            function animateCounter(element, targetValue, duration = 2000) {
+                let startValue = 0;
+                const increment = targetValue / (duration / 16); // ~60fps updates
+                let currentValue = 0;
+
+                const updateCounter = () => {
+                    currentValue += increment;
+                    if (currentValue < targetValue) {
+                        // Use Math.ceil to avoid staying at 0 for too long with small increments
+                        element.textContent = Math.ceil(currentValue).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = targetValue.toLocaleString(); // Ensure final value is exact
+                    }
+                };
+                 // Start the animation only if the target value is greater than 0
+                if (targetValue > 0) {
+                   requestAnimationFrame(updateCounter);
+                } else {
+                   element.textContent = targetValue.toLocaleString(); // Set to 0 immediately if target is 0
+                }
+            }
+
+            // Function to start counters when they become visible
+            const counterObserverCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const projectsCounter = document.getElementById('projects-counter');
+                        const sqftCounter = document.getElementById('sqft-counter');
+                        const experienceCounter = document.getElementById('experience-counter');
+
+                        // Check if the counter element exists and hasn't been animated yet (check for '0' or initial state)
+                        if (projectsCounter && projectsCounter.textContent === '0') {
+                            animateCounter(projectsCounter, 150); // Example target value
+                        }
+                        if (sqftCounter && sqftCounter.textContent === '0') {
+                            animateCounter(sqftCounter, 5); // Example target value (in millions)
+                        }
+                        if (experienceCounter && experienceCounter.textContent === '0') {
+                             animateCounter(experienceCounter, 25); // Example target value
+                        }
+
+                        // Stop observing the 'about' section once counters have been triggered
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const counterObserver = new IntersectionObserver(counterObserverCallback, { threshold: 0.5 }); // Trigger when 50% visible
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                counterObserver.observe(aboutSection);
+            }
+
+        });
+    </script>
+
+</body>
+</html>
